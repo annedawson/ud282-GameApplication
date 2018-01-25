@@ -1,6 +1,6 @@
 package com.company;
 
-// Updated: Sun 21 Jan 2018 13:33 PT
+// Updated: Thu 25 Jan 2018 13:43 PT
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +17,7 @@ public class Game {
     private int numberOfMovies;
     private String movie;
     private String movieGuess;
+    private String movieLettersGuessed;
     private File file = new File("movies.txt");
 
     // Constructor:
@@ -82,14 +83,45 @@ public class Game {
     }
 
     public void setMovieGuess(char theLetter) {
-        int n = 0;
-        while ( this.movie.indexOf(theLetter) != -1 ) {
-            this.movieGuess.replace(this.movie.charAt(this.movie.indexOf(theLetter)), theLetter);
-        }
+
+        //System.out.println(this.movie.indexOf(theLetter));
+        int i = this.movie.indexOf(theLetter);
+        char[] charArrayMovieGuess;
+        char[] charArrayLettersGuessed;
+
+        while (i != -1) {
+            System.out.println("Index of the letter is: " + i);
+            //System.out.println(this.movie.charAt(i));
+            //String result = "Test";
+            //result = result.replace('e','X');
+            //System.out.println("result" + result);
+
+            charArrayMovieGuess = movieGuess.toCharArray();
+            charArrayMovieGuess[i] = theLetter;
+            charArrayLettersGuessed = movie.toCharArray();
+            charArrayLettersGuessed[i] = '*';
+            String movieLettersGuessed = new String(charArrayLettersGuessed);
+            // String movieGuess = new String(charArrayMovieGuess);
+            // don't do the above because
+            // it makes a local variable with same name as the instance variable, when I really wanted
+            // to assign a value to the instance variable!
+            movieGuess = new String(charArrayMovieGuess);
+            //System.out.println(result);
+            //movieGuess = result;
+            //movieGuess = movieGuess.replace(movieGuess.charAt(1),'Z');
+            System.out.println(movieGuess);
+            System.out.println(movieLettersGuessed);
         /*
-        HERE!! The above doesn't work ! infinite loop!
+        if ( this.movie.indexOf(theLetter) != -1 ) {
+            System.out.println("Now in if part...");
+            System.out.println(this.movie.charAt(this.movie.indexOf(theLetter)));
+            this.movieGuess = this.movieGuess.replace(this.movie.charAt(i), theLetter);
+            System.out.println(this.movieGuess);
+        }
         */
-        System.out.println("In the setMovieGuess method");
+            i = movieLettersGuessed.indexOf(theLetter);
+            System.out.println("Leaving the setMovieGuess method");
+        }
     }
 
     public String getMovieGuess() {
