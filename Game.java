@@ -1,6 +1,7 @@
 package com.company;
 
-// Updated: Thu 25 Jan 2018 13:43 PT
+// Updated: Thu 1 Feb 2018 11:01 PT
+// adding code to setMovieGuessBlanks() on Thu 1 Feb 2018 to show spaces in movieGuess
 
 import java.io.File;
 import java.io.IOException;
@@ -78,50 +79,66 @@ public class Game {
     }
 
     public void setMovieGuessBlanks() {
+        // adding code to setMovieGuessBlanks() on Thu 1 Feb 2018 to show spaces in movieGuess
+        char[] charArrayMovieGuess;
+        char[] charArrayMovieCopy;
+        int indexOfSpace;
+
+        String movieCopy = this.movie;
+        System.out.println("In the setMovieGuessBlanks() method\n\n");
         this.movieGuess = this.movie.replaceAll(".", "_"); // "." is a regular expression meaning any character
         System.out.println(this.movieGuess);
+        System.out.println(movieCopy);
+        indexOfSpace = movieCopy.indexOf(" ");
+        System.out.println("Index of the space is: " + indexOfSpace);
+
+        while (indexOfSpace != -1) {
+            System.out.println("In while loop: Index of the space is: " + indexOfSpace);
+            indexOfSpace = movieCopy.indexOf(" ");
+            charArrayMovieGuess = movieGuess.toCharArray();
+            charArrayMovieGuess[indexOfSpace] = ' ';
+            charArrayMovieCopy = movieCopy.toCharArray();
+            charArrayMovieCopy[indexOfSpace] = '#';
+            movieCopy = new String(charArrayMovieCopy);
+            movieGuess = new String(charArrayMovieGuess);
+            indexOfSpace = movieCopy.indexOf(" ");
+
+        }
+
+        System.out.println("Leaving the setMovieGuessBlanks() method\n\n");
+
     }
 
-    public void setMovieGuess(char theLetter) {
+    public void setMovieGuess(char theLetter, int n) {
 
-        //System.out.println(this.movie.indexOf(theLetter));
-        int i = this.movie.indexOf(theLetter);
+
+
         char[] charArrayMovieGuess;
         char[] charArrayLettersGuessed;
 
-        while (i != -1) {
-            System.out.println("Index of the letter is: " + i);
-            //System.out.println(this.movie.charAt(i));
-            //String result = "Test";
-            //result = result.replace('e','X');
-            //System.out.println("result" + result);
+        int i;
 
+        if (n == 10){
+            movieLettersGuessed = movie;
+        }
+
+        i = movieLettersGuessed.indexOf(theLetter);
+
+        while (i != -1) {
+
+            System.out.println("Index of the letter is: " + i);
             charArrayMovieGuess = movieGuess.toCharArray();
             charArrayMovieGuess[i] = theLetter;
-            charArrayLettersGuessed = movie.toCharArray();
+            charArrayLettersGuessed = movieLettersGuessed.toCharArray();
             charArrayLettersGuessed[i] = '*';
-            String movieLettersGuessed = new String(charArrayLettersGuessed);
-            // String movieGuess = new String(charArrayMovieGuess);
-            // don't do the above because
-            // it makes a local variable with same name as the instance variable, when I really wanted
-            // to assign a value to the instance variable!
+            movieLettersGuessed = new String(charArrayLettersGuessed);
             movieGuess = new String(charArrayMovieGuess);
-            //System.out.println(result);
-            //movieGuess = result;
-            //movieGuess = movieGuess.replace(movieGuess.charAt(1),'Z');
-            System.out.println(movieGuess);
-            System.out.println(movieLettersGuessed);
-        /*
-        if ( this.movie.indexOf(theLetter) != -1 ) {
-            System.out.println("Now in if part...");
-            System.out.println(this.movie.charAt(this.movie.indexOf(theLetter)));
-            this.movieGuess = this.movieGuess.replace(this.movie.charAt(i), theLetter);
-            System.out.println(this.movieGuess);
-        }
-        */
+            System.out.println("movieGuess: " + movieGuess);
+            System.out.println("movieLettersGuessed: " + movieLettersGuessed);
             i = movieLettersGuessed.indexOf(theLetter);
-            System.out.println("Leaving the setMovieGuess method");
+
         }
+        System.out.println("Leaving the setMovieGuess method");
     }
 
     public String getMovieGuess() {
